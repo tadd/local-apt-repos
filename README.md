@@ -35,9 +35,9 @@ So you don't need to watch webpages of companies and/or GitHub release pages any
 
 ## References
 
-This repository is just a recap/rehash of `niry`'s answer in askubuntu.com.
+This repository is just a recap/rehash of `niry`'s answer in [askubuntu.com](https://askubuntu.com).
 
-* https://askubuntu.com/a/1316231
+* [Updating Zoom in the terminal - Ask Ubuntu](https://askubuntu.com/a/1316231)
 
 I've been living by Debian for over 15 years, but I had no idea I could `apt update` from
 local sources. Thanks a lot.
