@@ -7,7 +7,7 @@ or: I don't want to check every Zoom update with my own eyes. Really.
 
 You can use `apt update` as usual, which will check on its own. Nothing special.
 
-## Note
+## ⚠ Warning ⚠
 
 This repository is just a sample and not yet generalized enough. You'll need to edit files
 yourself, especially `update-debs`.
