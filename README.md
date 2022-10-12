@@ -5,7 +5,7 @@ or: I don't want to check every Zoom update with my own eyes. Really.
 1. `sudo ./setup.sh`
 2. Done.
 
-You can use `apt update` as usual, which will check on its own. Nothing special.
+Now you can use `apt update` as usual, which will check on its own. Nothing special.
 
 ## ⚠ Warning ⚠
 
