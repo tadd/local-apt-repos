@@ -1,4 +1,4 @@
-# How to automate updating of deb files in scattered locations
+# How to automate updating of `*.deb` files in scattered locations
 
 or: I don't want to check every Zoom update with my own eyes. Really.
 
