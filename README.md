@@ -14,9 +14,9 @@ yourself, especially `update-debs`.
 
 Currently, it includes definitions of
 
-* `zoom`
-* `bat`
-* `delta`
+* [`zoom`](https://zoom.us/download?os=linux)
+* [`bat`](https://github.com/sharkdp/bat)
+* [`delta`](https://github.com/dandavison/delta)
 
 ## Method
 
