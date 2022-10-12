@@ -1,0 +1,7 @@
+APT::Update::Pre-Invoke {
+   "cd /usr/local/mydebs &&
+    ./update-debs && ([ . -nt Packages ] || return 0) &&
+    #echo '99mydebs-update: Regenerating local files...' &&
+    apt-ftparchive packages . > Packages &&
+    apt-ftparchive release . > Release";
+};

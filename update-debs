@@ -1,0 +1,36 @@
+#!/bin/bash -eu
+
+gh_latest_version() {
+    base=$1
+    wget -qS $base 2>&1|sed -r 's|  Location: .*/v?([^/]+)$|\1|p;d'
+}
+
+ghurl() {
+    repos=$1
+    fmt=$2
+
+    base="https://github.com/${repos}/releases/latest/download"
+    ver=$(gh_latest_version $base)
+    printf "${base}/${fmt}\n" $ver
+}
+
+bat() {
+    ghurl sharkdp/bat 'bat_%s_amd64.deb'
+}
+
+delta() {
+    ghurl dandavison/delta 'git-delta_%s_amd64.deb'
+}
+
+zoom() {
+    echo 'https://zoom.us/client/latest/zoom_amd64.deb'
+}
+
+pkgs=(bat zoom delta)
+
+urls=()
+for f in ${pkgs[@]}; do
+    urls+=($($f))
+done
+
+wget -qN ${urls[@]}

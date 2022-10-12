@@ -1,0 +1,1 @@
+deb [trusted=yes lang=none] file:/usr/local/mydebs ./
