@@ -47,4 +47,4 @@ local sources. Thanks a lot.
 * Generalize more: drive source definitions out of the script
 * Be faster
 * Secure with signatures
-* Know about PPA
+* ~~Know about PPA~~
