@@ -29,8 +29,8 @@ zoom() {
 pkgs=(bat zoom delta)
 
 urls=()
-for f in ${pkgs[@]}; do
-    urls+=($($f))
+for url in $(${pkgs[@]}); do
+    wget -qN "$url" &
 done
 
-wget -qN ${urls[@]}
+wait
