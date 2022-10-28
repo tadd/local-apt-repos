@@ -10,7 +10,7 @@ Now you can use `apt update` as usual, which will check on its own. Nothing spec
 ## ⚠ Warning ⚠
 
 This repository is just a sample and not yet generalized enough. You'll need to edit files
-yourself, especially `update-debs`.
+yourself, especially `update-index`.
 
 Currently, it includes definitions of
 
@@ -24,10 +24,10 @@ Currently, it includes definitions of
   * `setup.sh` is a simple copier with few lines
     * `/etc/apt/sources.list.d/mydebs.list`
     * `/etc/apt/apt.conf.d/99mydebs-update`
-    * `/usr/local/mydebs/update-debs`
-* The script `update-debs` is called whenever you invoke `apt update`
+    * `/usr/local/mydebs/update-index`
+* The script `update-index` is called whenever you invoke `apt update`
   * with `APT::Update::Pre-Invoke` hook in `99mydebs-update`
-* `update-debs` checks updates of remote `*.deb` files, then download them into the local
+* `update-index` checks updates of remote `*.deb` files, then download them into the local
   directory only when updated
   * with `wget -N` time-stamping option
 

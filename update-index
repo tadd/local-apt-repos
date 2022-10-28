@@ -1,5 +1,24 @@
 #!/bin/bash -eu
 
+check() {
+    local regen=0
+    for deb in *.deb; do
+        if [[ Packages -ot $deb ]]; then
+            regen=1
+            break
+        fi
+    done
+    if (( ! $regen )); then
+        exit
+    fi
+}
+
+generate_index() {
+    #echo 'update-index: Regenerating local index...' >&2
+    apt-ftparchive packages . > Packages
+    apt-ftparchive release . > Release
+}
+
 gh_latest_version() {
     base=$1
     wget -qS $base 2>&1|sed -r 's|  Location: .*/v?([^/]+)$|\1|p;d'
@@ -33,3 +52,6 @@ for pkg in ${pkgs[@]}; do
 done
 
 wait
+
+check
+generate_index
