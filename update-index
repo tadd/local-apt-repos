@@ -21,7 +21,7 @@ generate_index() {
 
 gh_latest_version() {
     base=$1
-    wget -qS $base 2>&1|sed -r 's|  Location: .*/v?([^/]+)$|\1|p;d'
+    wget --spider -qS $base 2>&1|sed -r 's|  Location: .*/v?([^/]+)$|\1|p;d'
 }
 
 ghurl() {
@@ -31,6 +31,10 @@ ghurl() {
     base="https://github.com/${repos}/releases/latest/download"
     ver=$(gh_latest_version $base)
     printf "${base}/${fmt}\n" $ver
+}
+
+url_from_redirect() {
+    wget --spider -qS "$1" 2>&1|sed -n 's/ *location: *//p'
 }
 
 bat() {
@@ -45,7 +49,11 @@ zoom() {
     echo 'https://zoom.us/client/latest/zoom_amd64.deb'
 }
 
-pkgs=(bat zoom delta)
+discord() {
+    url_from_redirect 'https://discord.com/api/download?platform=linux&format=deb'
+}
+
+pkgs=(bat zoom delta discord)
 
 for pkg in ${pkgs[@]}; do
     wget -qN "$($pkg)" &
