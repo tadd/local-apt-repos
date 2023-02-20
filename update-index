@@ -42,7 +42,7 @@ bat() {
 }
 
 delta() {
-    ghurl dandavison/delta 'git-delta-musl_%s_amd64.deb'
+    ghurl dandavison/delta 'git-delta_%s_amd64.deb'
 }
 
 zoom() {
