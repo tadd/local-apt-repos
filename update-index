@@ -53,13 +53,19 @@ discord() {
     url_from_redirect 'https://discord.com/api/download?platform=linux&format=deb'
 }
 
-pkgs=(bat zoom delta discord)
+update_index() {
+    local pkgs=(bat zoom delta discord)
 
-for pkg in ${pkgs[@]}; do
-    wget -qN "$($pkg)" &
-done
+    for pkg in ${pkgs[@]}; do
+        wget -qN "$($pkg)" &
+    done
 
-wait
+    wait
 
-check
-generate_index
+    check
+    generate_index
+}
+
+{ pushd . ; cd $(dirname $(readlink -f $0)); } >/dev/null
+update_index "$@"
+popd >/dev/null
