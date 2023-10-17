@@ -1,8 +1,8 @@
 #!/bin/bash -eu
 
-declare verbose=
+declare verbose=0
 log() {
-    if [[ $verbose ]]; then
+    if (( verbose )); then
         msg "$@"
     fi
 }
@@ -68,7 +68,7 @@ parseopts() {
     local -A lopts
     for arg in "$@"; do
         if [[ ${arg} =~ ^-- ]]; then
-            lopts[${arg/--/}]=t
+            lopts[${arg/--/}]=1
         fi
     done
     declare -p lopts | sed 's/.*lopts=//'
@@ -78,8 +78,8 @@ update_index() {
     local -a pkgs=(bat zoom delta discord)
     local -A opts=$(parseopts "$@")
 
-    if [[ ${opts[verbose]-} ]]; then
-        verbose=t
+    if (( opts[verbose] )); then
+        verbose=1
     fi
 
     log 'wget(1)ing all pacakges with timestamp checking'
@@ -89,7 +89,7 @@ update_index() {
 
     wait
 
-    if [[ ${opts[force]-} ]]; then
+    if (( opts[force] )); then
         msg 'Forcing to generate files without checking'
     else
         check # may exit
