@@ -12,19 +12,15 @@ msg() {
 }
 
 check() {
-    log 'Check the need to genrerate'
-    local -i gen=0
+    log 'Check the need to genrerate indexes'
     for deb in *.deb; do
         if [[ Packages -ot $deb ]]; then
-            gen=1
-            break
+            log 'Check done, will generate'
+            return
         fi
     done
-    log 'Check done'
-    if (( ! gen )); then
-        log 'No need to genrerate, exiting'
-        exit
-    fi
+    log 'Check done. No need to genrerate, exiting'
+    exit
 }
 
 generate_index() {
