@@ -54,8 +54,7 @@ discord() {
 }
 
 update_index() {
-    local pkgs=(bat zoom delta discord)
-    local opt=shift
+    local -a pkgs=(bat zoom delta discord)
 
     for pkg in ${pkgs[@]}; do
         wget -qN "$($pkg)" &
@@ -67,6 +66,9 @@ update_index() {
     generate_index
 }
 
-{ pushd . ; cd $(dirname $(readlink -f $0)); } >/dev/null
-update_index "$@"
-popd >/dev/null
+main() {
+    cd $(dirname $(readlink -f $0))
+    update_index "$@"
+}
+
+main "$@"
