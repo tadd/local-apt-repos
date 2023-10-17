@@ -1,5 +1,15 @@
 #!/bin/bash -eu
 
+declare verbose=
+log() {
+    [[ $verbose ]] || return
+    msg "$@"
+}
+
+msg() {
+    echo "$progname: $@" >&2
+}
+
 check() {
     local regen=0
     for deb in *.deb; do
@@ -53,8 +63,19 @@ discord() {
     url_from_redirect 'https://discord.com/api/download?platform=linux&format=deb'
 }
 
+parseopts() {
+    local -A lopts
+    for arg in "$@"; do
+        if [[ ${arg} =~ ^-- ]]; then
+            lopts[${arg/--/}]=t
+        fi
+    done
+    declare -p lopts | sed 's/.*lopts=//'
+}
+
 update_index() {
     local -a pkgs=(bat zoom delta discord)
+    local -A opts=$(parseopts "$@")
 
     for pkg in ${pkgs[@]}; do
         wget -qN "$($pkg)" &
@@ -62,12 +83,19 @@ update_index() {
 
     wait
 
-    [[ ${1-} == --force ]] || check
+    if [[ ${opts[force]-} ]]; then
+        msg 'forcing to generate files without checking'
+    else
+        check # may exit
+    fi
     generate_index
 }
 
+declare progname
 main() {
-    cd $(dirname $(readlink -f $0))
+    local me="$(readlink -f $0)"
+    progname=$(basename "$me")
+    cd $(dirname "$me")
     update_index "$@"
 }
 
