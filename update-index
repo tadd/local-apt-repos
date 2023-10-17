@@ -78,6 +78,10 @@ update_index() {
     local -a pkgs=(bat zoom delta discord)
     local -A opts=$(parseopts "$@")
 
+    if [[ ${opts[verbose]-} ]]; then
+        verbose=t
+    fi
+
     log 'wget(1)ing all pacakges with timestamp checking'
     for pkg in ${pkgs[@]}; do
         wget -qN "$($pkg)" &
