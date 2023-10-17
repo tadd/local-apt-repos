@@ -55,6 +55,7 @@ discord() {
 
 update_index() {
     local pkgs=(bat zoom delta discord)
+    local opt=shift
 
     for pkg in ${pkgs[@]}; do
         wget -qN "$($pkg)" &
@@ -62,7 +63,7 @@ update_index() {
 
     wait
 
-    check
+    [[ ${1-} == --force ]] || check
     generate_index
 }
 
