@@ -1,3 +1,3 @@
 APT::Update::Pre-Invoke {
-   "cd /usr/local/mydebs && ./update-index";
+   "/usr/local/mydebs/update-index";
 };
