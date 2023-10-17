@@ -2,8 +2,9 @@
 
 declare verbose=
 log() {
-    [[ $verbose ]] || return
-    msg "$@"
+    if [[ $verbose ]]; then
+        msg "$@"
+    fi
 }
 
 msg() {
