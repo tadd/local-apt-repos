@@ -16,7 +16,8 @@ Currently, it includes definitions of
 
 * [`zoom`](https://zoom.us/download?os=linux)
 * [`bat`](https://github.com/sharkdp/bat)
-* [`delta`](https://github.com/dandavison/delta)
+* [`delta`](https://github.com/dandavison/delta) (or `git-delta` as a package)
+* [`discord`](https://discord.com/download)
 
 ## Method
 
@@ -27,17 +28,19 @@ Currently, it includes definitions of
     * `/usr/local/mydebs/update-index`
 * The script `update-index` is called whenever you invoke `apt update`
   * with `APT::Update::Pre-Invoke` hook in `99mydebs-update`
-* `update-index` checks updates of remote `*.deb` files, then download them into the local
-  directory only when updated
-  * with `wget -N` time-stamping option
+* It checks remote `*.deb` files and downloads them **only if updated**
+  * with `wget -N` timestamp-checking option
+* Then builds two files to behave as a local repository
+  * `Packages` and `Release` with `apt-ftparchive` command (It's useful even without FTP)
 
-So you don't need to watch webpages of companies and/or GitHub release pages anymore.
+So you don't need to watch webpages of companies and/or GitHub release pages anymore if
+you setup once.
 
 ## References
 
 This repository is just a recap/rehash of `niry`'s answer in [askubuntu.com](https://askubuntu.com).
 
-* [Updating Zoom in the terminal - Ask Ubuntu](https://askubuntu.com/a/1316231)
+**[Updating Zoom in the terminal - Ask Ubuntu](https://askubuntu.com/a/1316231)**
 
 I've been living by Debian for over 15 years, but I had no idea I could `apt update` from
 local sources. Thanks a lot.
