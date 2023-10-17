@@ -12,22 +12,26 @@ msg() {
 }
 
 check() {
-    local regen=0
+    log 'Check the need to genrerate'
+    local -i gen=0
     for deb in *.deb; do
         if [[ Packages -ot $deb ]]; then
-            regen=1
+            gen=1
             break
         fi
     done
-    if (( ! $regen )); then
+    log 'Check done'
+    if (( ! gen )); then
+        log 'No need to genrerate, exiting'
         exit
     fi
 }
 
 generate_index() {
-    log 'Regenerating local index'
+    log 'Generating local indexes'
     apt-ftparchive packages . > Packages
     apt-ftparchive release . > Release
+    log 'Generating done'
 }
 
 gh_latest_version() {
@@ -90,7 +94,7 @@ update_index() {
     wait
 
     if [[ ${opts[force]-} ]]; then
-        msg 'forcing to generate files without checking'
+        msg 'Forcing to generate files without checking'
     else
         check # may exit
     fi
