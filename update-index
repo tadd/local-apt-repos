@@ -44,10 +44,6 @@ ghurl() {
     printf "${base}/${fmt}\n" $ver
 }
 
-url_from_redirect() {
-    wget --spider -qS "$1" 2>&1|sed -n 's/ *location: *//p'
-}
-
 bat() {
     ghurl sharkdp/bat 'bat_%s_amd64.deb'
 }
@@ -61,7 +57,7 @@ zoom() {
 }
 
 discord() {
-    url_from_redirect 'https://discord.com/api/download?platform=linux&format=deb'
+    echo 'https://discord.com/api/download?platform=linux&format=deb'
 }
 
 parseopts() {
@@ -84,7 +80,7 @@ update_index() {
 
     log 'wget(1)ing all pacakges with timestamp checking'
     for pkg in ${pkgs[@]}; do
-        wget -qN "$($pkg)" &
+        wget --trust-server-names -qN "$($pkg)" &
     done
 
     wait
