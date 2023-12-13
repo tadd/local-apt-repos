@@ -31,16 +31,16 @@ generate_index() {
 }
 
 gh_latest_version() {
-    base="$1"
+    local -r base="$1"
+
     wget --spider -qS $base 2>&1|sed -r 's|  Location: .*/v?([^/]+)$|\1|p;d'
 }
 
 ghurl() {
-    repos="$1"
-    fmt="$2"
+    local -r repos="$1" fmt="$2"
 
-    base="https://github.com/${repos}/releases/latest"
-    ver=$(gh_latest_version $base)
+    local -r base="https://github.com/${repos}/releases/latest"
+    local -r ver=$(gh_latest_version ${base})
     printf "${base}/${fmt}\n" $ver
 }
 
@@ -71,8 +71,8 @@ parseopts() {
 }
 
 update_index() {
-    local -a pkgs=(bat zoom delta discord)
-    local -A opts=$(parseopts "$@")
+    local -ra pkgs=(bat zoom delta discord)
+    local -rA opts=$(parseopts "$@")
 
     if (( opts[verbose] )); then
         verbose=1
@@ -95,7 +95,7 @@ update_index() {
 
 declare progname
 main() {
-    local me="$(readlink -f $0)"
+    local -r me="$(readlink -f $0)"
     progname=$(basename "$me")
     cd $(dirname "$me")
     update_index "$@"
