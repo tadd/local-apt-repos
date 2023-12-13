@@ -70,15 +70,20 @@ parseopts() {
     declare -p lopts | sed 's/.*lopts=//'
 }
 
+wget:() {
+    (( opts[verbose] )) && echo wget "$@"
+    (( opts[simulate] )) && return
+    wget "$@"
+}
+
 update_index() {
     local -ra pkgs=(bat zoom delta discord)
-    local wget=wget
     eval opts=$(parseopts "$@")
-    (( opts[simulate] )) && wget='echo wget'
+    (( opts[simulate] )) && opts[verbose]=1
 
     log 'wget(1)ing all pacakges with timestamp checking'
     for pkg in ${pkgs[@]}; do
-        $wget --content-disposition -qN "$($pkg)" &
+        wget: --content-disposition -qN "$($pkg)" &
     done
 
     wait
