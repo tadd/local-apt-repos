@@ -71,9 +71,13 @@ parseopts() {
 }
 
 wget:() {
-    (( opts[verbose] )) && echo wget "$@"
+    local wget=wget
+    if (( opts[verbose] )); then
+        echo wget "$@"
+        wget+=' --show-progress'
+    fi
     (( opts[simulate] )) && return
-    wget "$@"
+    $wget "$@"
 }
 
 update_index() {
