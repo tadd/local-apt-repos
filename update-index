@@ -1,8 +1,7 @@
 #!/bin/bash -eu
 
-declare verbose=0
 log() {
-    if (( verbose )); then
+    if (( opts[verbose] )); then
         msg "$@"
     fi
 }
@@ -61,7 +60,7 @@ discord() {
 }
 
 parseopts() {
-    local -A lopts
+    local -A lopts=()
     for arg in "$@"; do
         if [[ ${arg} =~ ^-- ]]; then
             lopts[${arg/--/}]=1
@@ -72,11 +71,7 @@ parseopts() {
 
 update_index() {
     local -ra pkgs=(bat zoom delta discord)
-    local -rA opts=$(parseopts "$@")
-
-    if (( opts[verbose] )); then
-        verbose=1
-    fi
+    eval opts=$(parseopts "$@")
 
     log 'wget(1)ing all pacakges with timestamp checking'
     for pkg in ${pkgs[@]}; do
@@ -94,6 +89,7 @@ update_index() {
 }
 
 declare progname
+declare -A opts
 main() {
     local -r me="$(readlink -f $0)"
     progname=$(basename "$me")
