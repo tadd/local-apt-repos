@@ -39,7 +39,7 @@ gh_latest_version() {
 ghurl() {
     local -r repos="$1" fmt="$2"
 
-    local -r base="https://github.com/${repos}/releases/latest"
+    local -r base="https://github.com/${repos}/releases/latest/download"
     local -r ver=$(gh_latest_version ${base})
     printf "${base}/${fmt}\n" $ver
 }
