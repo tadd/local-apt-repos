@@ -32,16 +32,15 @@ generate_index() {
 
 gh_latest_version() {
     local -r base="$1"
-
-    wget --spider -qS $base 2>&1|sed -r 's|  Location: .*/v?([^/]+)$|\1|p;d'
+    wget --spider -qS "$base" 2>&1|sed -r 's|  Location: .*/v?([^/]+)$|\1|p;d'
 }
 
 ghurl() {
     local -r repos="$1" fmt="$2"
 
     local -r base="https://github.com/${repos}/releases/latest/download"
-    local -r ver=$(gh_latest_version ${base})
-    printf "${base}/${fmt}\n" $ver
+    local -r ver=$(gh_latest_version "${base}")
+    printf "${base}/${fmt}\n" "$ver"
 }
 
 bat() {
