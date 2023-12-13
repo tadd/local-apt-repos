@@ -35,20 +35,21 @@ gh_latest_version() {
     wget --spider -qS "$base" 2>&1|sed -r 's|  Location: .*/v?([^/]+)$|\1|p;d'
 }
 
+declare -r arch=$(dpkg --print-architecture)
 ghurl() {
-    local -r repos="$1" fmt="$2"
+    local -r repos="$1" pkg="$2"
 
     local -r base="https://github.com/${repos}/releases/latest/download"
     local -r ver=$(gh_latest_version "${base}")
-    printf "${base}/${fmt}\n" "$ver"
+    echo "${base}/${pkg}_${ver}_${arch}.deb"
 }
 
 bat() {
-    ghurl sharkdp/bat 'bat_%s_amd64.deb'
+    ghurl sharkdp/bat bat
 }
 
 delta() {
-    ghurl dandavison/delta 'git-delta_%s_amd64.deb'
+    ghurl dandavison/delta git-delta
 }
 
 zoom() {
