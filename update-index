@@ -39,7 +39,7 @@ ghurl() {
     repos="$1"
     fmt="$2"
 
-    base="https://github.com/${repos}/releases/latest/download"
+    base="https://github.com/${repos}/releases/latest"
     ver=$(gh_latest_version $base)
     printf "${base}/${fmt}\n" $ver
 }
