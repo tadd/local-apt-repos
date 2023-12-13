@@ -24,6 +24,7 @@ check() {
 
 generate_index() {
     log 'Generating local indexes'
+    (( opts[simulate] )) && return
     apt-ftparchive packages . > Packages
     apt-ftparchive release . > Release
     log 'Generating done'
@@ -71,11 +72,13 @@ parseopts() {
 
 update_index() {
     local -ra pkgs=(bat zoom delta discord)
+    local wget=wget
     eval opts=$(parseopts "$@")
+    (( opts[simulate] )) && wget='echo wget'
 
     log 'wget(1)ing all pacakges with timestamp checking'
     for pkg in ${pkgs[@]}; do
-        wget --trust-server-names -qN "$($pkg)" &
+        $wget --trust-server-names -qN "$($pkg)" &
     done
 
     wait
