@@ -78,7 +78,7 @@ update_index() {
 
     log 'wget(1)ing all pacakges with timestamp checking'
     for pkg in ${pkgs[@]}; do
-        $wget --trust-server-names -qN "$($pkg)" &
+        $wget --content-disposition -qN "$($pkg)" &
     done
 
     wait
