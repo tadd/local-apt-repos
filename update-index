@@ -60,6 +60,11 @@ discord() {
     echo 'https://discord.com/api/download?platform=linux&format=deb'
 }
 
+rclone() {
+    ghurl rclone/rclone rclone |
+      sed -r 's/_/-/g; s/amd64/linux-&/; s/[0-9]/v&/'
+}
+
 parseopts() {
     local -A lopts=()
     for arg in "$@"; do
@@ -81,7 +86,7 @@ wget:() {
 }
 
 update_index() {
-    local -ra pkgs=(bat zoom delta discord)
+    local -ra pkgs=(bat zoom delta discord rclone)
     eval opts=$(parseopts "$@")
     (( opts[simulate] )) && opts[verbose]=1
 
