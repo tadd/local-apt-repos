@@ -18,6 +18,7 @@ Currently, it includes definitions of
 * [`bat`](https://github.com/sharkdp/bat)
 * [`delta`](https://github.com/dandavison/delta) (or `git-delta` as a package)
 * [`discord`](https://discord.com/download)
+* [`rclone`](https://github.com/rclone/rclone)
 
 ## Method
 
