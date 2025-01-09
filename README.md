@@ -1,3 +1,8 @@
+> [!WARNING]
+> **This repository was generalized and deprecated in favor of
+> [local-apt-repository-update-debs](https://github.com/tadd/local-apt-repository-update-debs)
+> with [local-apt-repository](https://salsa.debian.org/debian/local-apt-repository).**
+
 # How to automate updating of `*.deb` files in scattered locations
 
 or: I don't want to check every Zoom update with my own eyes. Really.
